@@ -33,20 +33,20 @@ const MainPage = () => {
         <div id="product-list">
           {products.map((product, idx) => {
             return (
-              <div className="product-card" key={idx}>
+              <div class="product-card" key={idx}>
                 <div>
                   <img
-                    className="product-img"
+                    class="product-img"
                     src={product.imageUrl}
                     alt={product.name}
                   />
                 </div>
-                <div className="product-content">
-                  <span className="product-name">{product.name}</span>
-                  <span className="product-price">{product.price}원</span>
-                  <div className="product-seller">
+                <div class="product-content">
+                  <span class="product-name">{product.name}</span>
+                  <span class="product-price">{product.price}원</span>
+                  <div class="product-seller">
                     <img
-                      className="product-avatar"
+                      class="product-avatar"
                       src="images/icons/avatar.png"
                       alt=""
                     />
