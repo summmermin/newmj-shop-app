@@ -1,2 +1,4 @@
-const UploadPage = ()=>{return(<div>UploadPage</div>)}
+const UploadPage = () => {
+	return <div>UploadPage</div>;
+};
 export default UploadPage;
