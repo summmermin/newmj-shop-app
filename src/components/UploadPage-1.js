@@ -1,21 +1,22 @@
-import { useState } from "react";
-import "./UploadPage.css";
-import axios from "axios";
 import { API_URL } from "../config/constants";
+import { useState } from "react";
+import { axios } from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   Form,
   Divider,
-  Input,
   InputNumber,
   Button,
   Upload,
+  Input,
   message,
 } from "antd";
+import "./UploadPage.css";
 
 const UploadPage = () => {
-  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
+  const navi = useNavigate();
+
   const onSubmit = (values) => {
     axios
       .post(`${API_URL}/products`, {
@@ -26,13 +27,14 @@ const UploadPage = () => {
         imageUrl: imageUrl,
       })
       .then((result) => {
-        navigate("/", { replace: true });
+        console.log(result);
+        navi("/", { replace: true });
       })
-      .catch((error) => {
-        message.error(`상품등록시 에러가 발생했습니다 ${error.message}`);
+      .catch(() => {
+        message.error("상품등록시 오류가 있습니다");
       });
   };
-  const onChageImage = (info) => {
+  const onChangeImage = (info) => {
     if (info.file.status === "uploading") {
       return;
     }
@@ -45,78 +47,75 @@ const UploadPage = () => {
 
   return (
     <div id="body">
-      <div id="load-container">
+      <div id="upload-container">
         <Form name="uploadForm" onFinish={onSubmit}>
-          <Form.Item
-            name="upload"
-            label={<div className="upload-label">상품 사진</div>}
-          >
+          <Form.Item name="upload">
             <Upload
               name="image"
               action={`${API_URL}/image`}
               listType="picture"
               showUploadList={false}
-              onChange={onChageImage}
+              onChange={onChangeImage}
             >
               {imageUrl ? (
                 <img id="upload-img" src={`${API_URL}/${imageUrl}`} />
               ) : (
                 <div id="upload-img-placeholder">
                   <img src="/images/icons/camera.png" />
-                  <span>이미지업로드</span>
+                  <span>상품 이미지를 업로드 해주세요</span>
                 </div>
               )}
             </Upload>
           </Form.Item>
           <Divider />
           <Form.Item
-            label={<div className="upload-label">판매자명</div>}
-            name="seller"
-            rules={[{ required: true, message: "판매자명을 입력해주세요" }]}
+            label={<span className="upload-label">상품명</span>}
+            name="product-name"
+            rules={[
+              { required: true, message: "상품명은 필수 입력 사항입니다." },
+            ]}
           >
             <Input
               className="upload-name"
-              size="large"
-              placeholder="판매자명을 입력해주세요"
-            />
-          </Form.Item>
-          <Divider />
-          <Form.Item
-            label={<div className="upload-label">상품명</div>}
-            rules={[{ required: true, message: "상품명을 입력해주세요" }]}
-            name="name"
-          >
-            <Input
-              className="upload-name"
-              size="large"
               placeholder="상품명을 입력해주세요"
             />
           </Form.Item>
-          <Divider />
+
           <Form.Item
-            label={<div className="upload-label">판매가</div>}
-            rules={[{ required: true, message: "판매가를 입력해주세요" }]}
-            name="price"
+            label={<span className="upload-label">판매자명</span>}
+            name="product-seller"
+            rules={[
+              { required: true, message: "판매자명은 필수 입력 사항입니다." },
+            ]}
           >
-            <InputNumber
-              className="upload-price"
-              size="large"
-              min={0}
-              defaultValue={0}
+            <Input
+              className="upload-name"
+              placeholder="판매자명을 입력해주세요"
             />
           </Form.Item>
-          <Divider />
+
           <Form.Item
-            label={<div className="upload-label">상품설명</div>}
-            rules={[{ required: true, message: "상품설명을 입력해주세요" }]}
-            name="description"
+            label={<span className="upload-label">판매가</span>}
+            name="product-price"
+            rules={[
+              { required: true, message: "판매가는 필수 입력 사항입니다." },
+            ]}
+          >
+            <InputNumber className="upload-name" defaultValue={0} min={0} />
+          </Form.Item>
+
+          <Form.Item
+            label={<span className="upload-label">상품설명</span>}
+            name="product-desc"
+            rules={[
+              { required: true, message: "상품설명은 필수 입력 사항입니다." },
+            ]}
           >
             <Input.TextArea
-              size="large"
-              id="product-description"
+              className="upload-name"
+              placeholder="상품설명을 입력하세요"
               showCount
               maxLength={300}
-              placeholder="상품설명을 입력해주세요"
             />
           </Form.Item>
           <Divider />
