@@ -30,7 +30,6 @@ const ProductPage = () => {
 				<img src={`${API_URL}/${product.imageUrl}`} alt={product.name} />
 			</div>
 			<div id="profile-box">
-				<img src="/images/icons/avatar.png" alt={product.seller} />
 				<span className="product-seller">{product.seller}</span>
 			</div>
 			<div id="content-box">

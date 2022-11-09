@@ -41,7 +41,7 @@ const MainPage = () => {
   return (
     <>
       <div id="body">
-        <Carousel autoplay autoplaySpeed={500}>
+        <Carousel autoplay autoplaySpeed={600}>
           {banners.map((banner,index)=>{
             return(
               <Link to={banner.href} key={index}>
@@ -72,11 +72,6 @@ const MainPage = () => {
                     </span>
                     <div className="product-footer">
                       <div className="product-seller">
-                        <img
-                          className="product-avatar"
-                          src="images/icons/avatar.png"
-                          alt=""
-                        />
                         {product.seller}
                       </div>
                       <span className="product-date">
